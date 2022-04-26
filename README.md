@@ -1,133 +1,70 @@
-# 📋 Sobre a atividade
+# Getting Started with Create React App
 
-Nessa atividade iremos aprender a criar nosso primeiro **reducer**. Também vamos aprender sobre o hook **useSelector**. Esse hook nos proporciona a função de buscar os dados da **Store** (nossos estados globais) e selecionar o **reducer** especifico que queremos os dados.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-Por fim, listaremos os dados em tela para selecionados em tela.
+## Available Scripts
 
-# ℹ️ Informações úteis
+In the project directory, you can run:
 
-## Resultado final
+### `yarn start`
 
-![](https://i.ibb.co/LZSPb8B/Captura-de-tela-de-2021-07-19-11-19-22.png)
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-## Mão na massa!
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-Para iniciar nosso projeto, devemos instalar as dependências necessárias:
+### `yarn test`
 
-    yarn add redux react-redux
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-Com essas duas dependências instaladas podemos começar a criar a nossa estrutura.
+### `yarn build`
 
-### Criando a estrutura inicial de pastas
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-Para iniciarmos, devemos criar nossas pastas que conterão o gerenciamento de estado da nossa aplicação.
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-1.  Inicie criando a pasta **store** com seu **index.js,** dentro da **src**.
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-2.  Dentro da nossa pasta **store**, teremos a pasta **modules**.
+### `yarn eject`
 
-    **Observação**: Os nossos "módulos" do redux, são representações de "domínios" da aplicação que precisam ser compartilhados entre todos os componentes. Exemplo: Carrinho de compras, informações do usuário.
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-3.  Cada módulo da nossa store, terá um **reducer** e suas **actions**. O **reducer** é responsável por receber os dados e trata-los, enquanto as **actions** são as que enviarão os dados para o **reducer**.
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Exemplo de estruturação das pastas:
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-![](https://i.ibb.co/w0Ykz97/exemplo-pastas.png)
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-### Primeiro Reducer
+## Learn More
 
-Agora vamos criar o **reducer** do módulo **fruits**.
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-    const initialState = ["Banana", "Maçã", "Morango"];
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-    const fruitsReducer = (state = initialState, action) => {
-      switch (action.type) {
-        default:
-          return state;
-      }
-    };
+### Code Splitting
 
-    export default fruitsReducer;
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-Nesse **reducer**, temos uma constante que é o nosso **state inicial**. Todo **reducer** é uma função que recebe dois paramêtros:
+### Analyzing the Bundle Size
 
-1.  **State atual** (o qual definimos com o valor padrão da initialState).
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-2.  **Action**, que será um objeto que conterá as informações para podermos alterar o **state** do nosso **reducer**.
+### Making a Progressive Web App
 
-Dentro do **reducer** temos um **switch** que testa o **action.type** (isso ficará mais claro nas próximas aulas). No caso do exemplo não alteraremos o **state**, mas isso vai acontecer dentro do **switch**, nas próximas aulas teremos exemplos com alteração do **state**.
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-Caso precise lembrar sobre o funcionamento do **switch**:
+### Advanced Configuration
 
-[switch - JavaScript | MDN](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Statements/switch)
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Configurando o Redux
+### Deployment
 
-Dentro da **store**, no arquivo **index.js** teremos uma estruturação nesse formato:
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-    import { createStore, combineReducers } from "redux";
+### `yarn build` fails to minify
 
-    // importando o reducer
-    import fruitsReducer from "./modules/fruits/reducer";
-
-    // combinando os reducers da aplicação, nesse exemplo temos apenas um
-    const reducers = combineReducers({ fruits: fruitsReducer });
-
-    // passando os reducers combinados para a store
-    const store = createStore(reducers);
-
-    export default store;
-
-Com a função **createStore** criamos a nossa **store** e com **combineReducers** iremos criar a **store** baseada na fusão dos nossos **reducers**.
-
-Conforme vamos criando **reducers**, nós adicionamos no **combineReducers**. Ou seja, a **store** é um **state global** que é dividido em diversos outros **states**.
-
-A partir de agora vamos importar a **store** no **index.js** do projeto, o primeiro arquivo onde colocamos os componentes de configuração. Vamos utilizar o `<Provider>` do react-redux que tem o papel de compartihar a **store** com os componentes, ou seja, tudo que for `{children}` do `<Provider>`, poderá acessar os dados da **store**.
-
-    import React from "react";
-    import ReactDOM from "react-dom";
-    import App from "./App";
-
-    // importando Provider e a store
-    import { Provider } from "react-redux";
-    import store from "./store";
-
-    ReactDOM.render(
-      <React.StrictMode>
-        <Provider store={store}>
-          <App />
-        </Provider>
-      </React.StrictMode>,
-      document.getElementById("root")
-    );
-
-Terminamos a configuração da **store**. Só falta entender o como funciona o consumo desses dados.
-
-### Consumindo os dados
-
-O consumo de dados é feito com o **useSelector**. Ele tem como parâmetro o **state inteiro** do redux, ou seja, a **store**. E dentro da **store**, acessamos o **reducer de fruits**, que instanciamos logo acima. A partir disso é só mostrar os dados em tela.
-
-    //importando useSelector do react-redux
-    import { useSelector } from "react-redux";
-
-    const FruitsPage = () => {
-    	//acessando o estado global e pegando o state fruits
-      const fruits = useSelector((state) => state.fruits);
-
-      return (
-        <div>
-          {fruits.map((fruit) => (
-            <p key={fruit}> {fruit} </p>
-          ))}
-        </div>
-      );
-    }
-
-    export default FruitsPage;
-
-Para finalizar, estilize está atividade.
-
-# 💡Conhecimentos aplicados:
-
-*   Redux estruturação
-*   Redux useSelector
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

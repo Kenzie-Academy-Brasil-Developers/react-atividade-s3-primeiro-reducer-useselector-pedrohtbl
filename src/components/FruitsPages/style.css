@@ -1,0 +1,30 @@
+li{
+    border: 3px solid white;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    justify-content: space-between;
+    width: 350px;
+    height: 200px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 10px;
+    box-sizing: border-box;
+}
+
+p{
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
+}
+
+li img{
+    width: 200px;
+}
+
+ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    
+}
